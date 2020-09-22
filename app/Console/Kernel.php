@@ -7,35 +7,39 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-        //
-    ];
+  /**
+   * The Artisan commands provided by your application.
+   *
+   * @var array
+   */
+  protected $commands = [
+    \App\Console\Commands\ActiveUserCommand::class,
+    \App\Console\Commands\OrderCommand::class,
+    \App\Console\Commands\MechanicCommand::class,
+  ];
 
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        // $schedule->command('inspire')->hourly();
-    }
+  /**
+   * Define the application's command schedule.
+   *
+   * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+   * @return void
+   */
+  protected function schedule(Schedule $schedule)
+  {
+    // $schedule->command('user:active')->everyMinute();
+    // $schedule->command('order:create')->everyMinute();
+    $schedule->command('mechanic:create')->everyMinute();
+  }
 
-    /**
-     * Register the commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
-    {
-        $this->load(__DIR__.'/Commands');
+  /**
+   * Register the commands for the application.
+   *
+   * @return void
+   */
+  protected function commands()
+  {
+    $this->load(__DIR__ . '/Commands');
 
-        require base_path('routes/console.php');
-    }
+    require base_path('routes/console.php');
+  }
 }
