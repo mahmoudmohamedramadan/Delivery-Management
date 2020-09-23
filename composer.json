@@ -21,7 +21,7 @@
         "mcamara/laravel-localization": "^1.5",
         "pusher/pusher-php-server": "^4.1",
         "spatie/laravel-medialibrary": "^7.0.0",
-        "spatie/laravel-query-builder": "^3.2",
+        "spatie/laravel-query-builder": "^3.2"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
