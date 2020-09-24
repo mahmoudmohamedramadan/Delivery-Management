@@ -176,6 +176,7 @@ return [
     App\Providers\RouteServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,
     Spatie\QueryBuilder\QueryBuilderServiceProvider::class,
+    RealRashid\SweetAlert\SweetAlertServiceProvider::class,
   ],
 
   /*
@@ -230,6 +231,7 @@ return [
     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     'PDF' => Barryvdh\DomPDF\Facade::class,
     'QueryBuilder' => Spatie\QueryBuilder\QueryBuilder::class,
+    'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
   ],
 
 ];
