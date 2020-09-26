@@ -10,8 +10,6 @@ use App\Models\Delegate;
 
 class DelegateAjaxController extends Controller
 {
-  use  ValidateDelegateTrait;
-
   public function store(DelegateRequest $request)
   {
     event(new \App\Events\DelegateEvent($request->toArray()));
@@ -32,7 +30,7 @@ class DelegateAjaxController extends Controller
     }
     $delegate->delete();
     $delegate->orders()->delete();
-    return response()->json(['status' => true,]);
+    return response()->json(['status' => true]);
   }
 
   public function search()
