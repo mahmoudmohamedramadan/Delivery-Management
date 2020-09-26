@@ -17,7 +17,7 @@
       <div class="line"></div>
     </div>
     @error('name')
-    <span class="text-red-600 font-bold float-left">{{ $message
+    <span class="float-left text-red-700 font-bold">{{ $message
     }}</span>@enderror
   </label>
   <label>
@@ -28,7 +28,7 @@
       <div class="line"></div>
     </div>
     @error('national_id')
-    <span class="text-red-600 font-bold float-left">{{ $message
+    <span class="float-left text-red-700 font-bold">{{ $message
     }}</span>@enderror
   </label>
   <label>
@@ -39,7 +39,7 @@
       <div class="line"></div>
     </div>
     @error('phone')
-    <span class="text-red-600 font-bold float-left">{{ $message
+    <span class="float-left text-red-700 font-bold">{{ $message
     }}</span>@enderror
   </label>
   <label>
@@ -52,11 +52,12 @@
     </div>
     @error('motor_size')
     <span
-      class="text-red-600 font-bold float-left">{{ $message }}</span>@enderror
+      class="float-left text-red-700 font-bold">{{ $message }}</span>@enderror
   </label>
   <label>
     <div class="input-group">
       <select class="custom-select" wire:model.lazy="car_id">
+        <option value="{{ $car_id['id'] }}">{{ $car_id['type'] }}</option>
         @foreach ($cars as $car)
           <option value="{{ $car->id }}">{{ $car->type }}</option>
         @endforeach
@@ -72,7 +73,7 @@
     </div>
     @error('made_date')
     <span
-      class="text-red-600 font-bold float-left">{{ $message }}</span>@enderror
+      class="float-left text-red-700 font-bold">{{ $message }}</span>@enderror
   </label>
   <label>
     <img class="mt-2" src="/images/delegate/{{ $image }}" alt="{{ $image }}"
