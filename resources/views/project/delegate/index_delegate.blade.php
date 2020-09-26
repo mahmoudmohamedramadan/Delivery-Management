@@ -1,27 +1,25 @@
-
-@extends('layouts.app')@section('title',
-    'Delegate\'s Data | Delivery
-    Management',)
+@extends('layouts.app')@section('title', 'Delegate\'s Data | Delivery Management')
 @section('ajax')
     <script>
         $(document).ready(function() {
+            $('#delegate-data').DataTable();
             $(document).ajaxStart(function() {
                 $('#wait-msg').show();
             });
             $(document).ajaxComplete(function() {
                 $('#wait-msg').hide();
             });
-            $('#filter-delegate').submit(function(e){
+            $('#filter-delegate').click(function(e) {
                 e.preventDefault();
                 $.ajax({
-                    url: '{{ action([\App\Http\Controllers\Delegate\DelagateDBRelation::class, "DelegateOrderRelation"]) }}',
+                    url: '{{ action([\App\Http\Controllers\Delegate\DelagateDBRelation::class, 'DelegateOrderRelation']) }}',
                     type: 'post',
                     dataType: 'json',
                     data: $('#frm-filter').serialize(),
-                    success: function(data){
-                        console.log(data);
+                    success: function(data) {
+                        $('#table-body').empty().html(data.delegate_rows);
                     },
-                    error: function(data){
+                    error: function(data) {
                         console.log(data);
                     },
                 });
@@ -67,7 +65,7 @@
                     dataType: 'json',
                     data: {
                         '_token': '{{ csrf_token() }}',
-                        'delegate_table': $('#delegate_table').html()
+                        'delegate_table': $('#delegate-table').html()
                     },
                     success: function(data) {
                         console.log(data);
@@ -94,7 +92,11 @@
 @stop
 @section('content')
     @if ($delegates->count() > 0)
-        <form action="" method="post" id="frm-filte" style="width:920px;padding:5 5 15 5;background:#efefef;margin-left:70px;margin-bottom:60px;margin-top:10px;float:left">
+        <div id="wait-msg" style="display: none;position:absolute;z-index:
+            100000;margin-top: 330px;margin-left: 530px" class="spinner-border
+            text-primary" role="status"></div>
+        <form action="" id="frm-filter"
+            style="width:920px;padding:5 5 15 5;background:#efefef;margin-left:70px;margin-bottom:60px;margin-top:10px;float:left">
             @csrf
             <h1 class="font-bold text-lg text-gray-600 py-4">Choose Fit Filter</h1>
             <input type="radio" name="filter" value="0" id="no-filter" checked>
@@ -117,8 +119,8 @@
                 </div>
             </label>
         </form>
-        <div id="delegate_table">
-            <table class="table table-striped">
+        <div id="delegate-table" class="bg-white">
+            <table class="table" id="delegate-data">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -130,33 +132,11 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    @foreach ($delegates as $delegate)
-                        <tr class="row-{{ $delegate->id }}">
-                            <td>{{ $delegate->id }}</td>
-                            <td><a href="/index/delegate/{{ $delegate->id }}">{{ $delegate->name }}</a>
-                            </td>
-                            <td>{{ $delegate->national_id }}</td>
-                            <td>{{ $delegate->phone }}</td>
-                            @if ($delegate->image)
-                                <td><img src="{{ asset('images/delegate/' . $delegate->image) }}"
-                                        alt="{{ $delegate->image }}" width="80px" height="80px">
-                                </td>
-                                @include('project.layouts.layout',['id' => $delegate->id,'filter'
-                                => $filter])
-                            @else
-                                <td><span class="text-red-700 font-semibold">null</span></td>
-                                @include('project.layouts.layout',['id' => $delegate->id,'filter'
-                                => $filter])
-                            @endif
-                        </tr>
-                    @endforeach
+                    {!! $delegate_rows !!}
                 </tbody>
             </table>
+            <input type="button" class="report btn btn-dark ml-5 mb-3" value="Report Delegate's Data">
         </div>
-        <input type="button" class="report btn btn-dark ml-5" value="Report Delegate's Data">
-        <label class="pagination justify-content-center">
-            {{ $delegates->links() }}
-        </label>
     @else
         <div class="alert alert-warning">
             <strong>Warning</strong><br>
