@@ -1,19 +1,14 @@
 @extends('layouts.app')
-<title>Edit {{ $car->car_type }} | Delivery Management</title>
+<title>Edit {{ $car->type }} | Delivery Management</title>
 @section('ajax')
 <script>
     $(document).ready(function(){
-        $('#save-ajax').on('click',function(e){
-            var id = parseInt( $('#id').val() );
-            e.preventDefault();
+        $('#edit-ajax').on('click',function(){
             $.ajax({
-                type: 'POST',
-                url: '/index/ajax/car'
+                type: 'patch',
+                url: '/index/ajax/car/' + $('#id').val(),
                 dataType: 'json',
-                data: ('#ajax').serialize(),
-                processData: false,
-                contentType: false,
-                cache: false,
+                data: $('form').serialize(),
                 success: function(data) {
                     if(data.status){
                        top.location.href = '/index/car';
@@ -28,29 +23,60 @@
 </script>
 @stop
 @section('content')
-<div>
-    <form id="ajax" action="/index/car/{{ $car->id }}" method="POST">
+    <form action="/index/car/{{ $car->id }}" method="POST">
         @csrf
-        @method('PATCH')
-        <fieldset class="flex justify content-center border border-gray-400 p-10 mb-10 ml-1 mr-1">
-            <legend class="border border-gray-400 p-3 mb-3 text-center">Edit Car Inforamtion</legend>
-            <x-flash/>
-            <span>ID Number</span>
-            <input id="id" type="text" value="{{ $car->id ?? old('id_number') }}" name="id_number" class="mt-2 py-1 px-1 text-red-600 font-bold border border-gray-400" style="text-align:center;width: 200px" readonly>
-            <br><span>Car Type</span>
-            <input type="text" value="{{ $car->car_type ?? old('car_type') }}" name="car_type" class="mt-2 py-1 px-1 border border-gray-400" style="width: 400px" autocomplete="off" placeholder="Enter Car Type">
-            @error('car_type') <span class="text-red-600 font-bold"> {{ $message }} </span> @enderror
-            <br><span>Car Char</span>
-            <input type="text" value="{{ $car->car_char ?? old('car_char') }}" name="car_char" class="mt-2 py-1 px-1 border border-gray-400" style="width: 200px" autocomplete="off" placeholder="Enter Car Char">
-            @error('car_char') <span class="text-red-600 font-bold"> {{ $message }} </span> @enderror
-            <br><span>Car Number</span>
-            <input type="text" value="{{ $car->car_number ?? old('car_number') }}" name="car_number" class="mt-2 py-1 px-1 border border-gray-400" style="width: 200px" autocomplete="off" placeholder="Enter Car Number">
-            @error('car_number') <span class="text-red-600 font-bold"> {{ $message }} </span> @enderror
-            <div class="mt-10">
-                <input type="submit" value="Edit Data" class="btn btn-primary" style="width: 200px">
-                <button id="save-ajax" class="btn btn-primary" style="width: 200px">Edit Ajax Data</button>
-            </div>
-        </fieldset>
-    </form>
-</div>
+        @method('patch')
+        <label>
+          <span class="label-txt">ID Number</span>
+          <input type="text" id="id" value="{{ $car->id }}"
+          class="input text-center float-left text-red-700 font-bold" readonly>
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+        </label>
+        <label>
+          <span class="label-txt">Car Type</span>
+          <input type="text" value="{{ $car->type ?? old('type') }}" name="type" class="input"
+                 autocomplete="off" placeholder="Enter Car Type">
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+          @error('type') <span
+            class="float-left text-red-700 font-bold"> {{ $message }} </span> @enderror
+        </label>
+        <label>
+          <span class="label-txt">Car Char</span>
+          <input type="text" value="{{ $car->char ?? old('char') }}" name="char" class="input"
+                 autocomplete="off" placeholder="Enter Car Char" maxlength="3">
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+          @error('char') <span
+            class="float-left text-red-700 font-bold"> {{ $message }} </span> @enderror
+        </label>
+        <label>
+          <span class="label-txt">Car Number</span>
+          <input type="text" value="{{ $car->number ?? old('number') }}" name="number"
+                 class="input" autocomplete="off" placeholder="Enter Car Number" maxlength="3">
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+          @error('number') <span
+            class="float-left text-red-700 font-bold"> {{ $message }} </span> @enderror
+        </label>
+        <label>
+          <div class="input-group">
+            <select class="custom-select" name="mechanic_id">
+                <option value="{{ $car->mechanic_id }}">{{ $car->mechanic->name }}</option>
+              @foreach ($mechanics as $mechanic)
+                <option value="{{ $mechanic->id }}">{{ $mechanic->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          @error('mechanic_id') <span
+            class="float-left text-red-700 font-bold"> {{ $message }} </span> @enderror
+        </label>
+        <input type="submit" value="Edit Data" class="btn btn-success">
+        <input type="button" value="Edit Data Ajax" class="btn btn-success" id="edit-ajax">
+      </form>
 @endsection
