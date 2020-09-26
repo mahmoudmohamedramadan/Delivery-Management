@@ -1,3 +1,4 @@
+
 @extends('layouts.app')@section('title',
     'Delegate\'s Data | Delivery
     Management',)
@@ -9,6 +10,21 @@
             });
             $(document).ajaxComplete(function() {
                 $('#wait-msg').hide();
+            });
+            $('#filter-delegate').submit(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ action([\App\Http\Controllers\Delegate\DelagateDBRelation::class, "DelegateOrderRelation"]) }}',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $('#frm-filter').serialize(),
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log(data);
+                    },
+                });
             });
             $('.delete-ajax').on('click', function(e) {
                 const id = $(this).attr('delete-id');
@@ -78,9 +94,7 @@
 @stop
 @section('content')
     @if ($delegates->count() > 0)
-        <form action="{{ action([\App\Http\Controllers\Delegate\DelagateDBRelation::class, 'DelegateOrderRelation']) }}"
-            method="post" style="width:920px;padding:5 5 15 5;background:#efefef;
-                      margin-left:70px;margin-bottom:60px;margin-top:10px;float:left" id="frm-filter">
+        <form action="" method="post" id="frm-filte" style="width:920px;padding:5 5 15 5;background:#efefef;margin-left:70px;margin-bottom:60px;margin-top:10px;float:left">
             @csrf
             <h1 class="font-bold text-lg text-gray-600 py-4">Choose Fit Filter</h1>
             <input type="radio" name="filter" value="0" id="no-filter" checked>
@@ -94,7 +108,7 @@
             <input type="radio" name="filter" value="3" id="delegate-doesnt-have">
             <label for="delegate-doesnt-have" class="cursor-pointer" style="display:inline;margin:0px">Delegates Doesnt Have
                 Orders</label><br>
-            <input type="submit" value="Apply Filter" class="mt-3 btn btn-dark">
+            <input type="submit" value="Apply Filter" class="mt-3 btn btn-dark" id="filter-delegate">
             <label>
                 <input type="text" id="search" class="input" placeholder="Search...">
                 <div style="float:left;display:none" id="search-result"></div>
