@@ -75,10 +75,8 @@
         <input type="submit" value="Save Data" class="btn btn-success">
         <input type="button" id="save-ajax" value="Save Ajax Data" class="btn btn-success">
     </form>
-    <label style="position:absolute;bottom: 0">
         <input type="button" value="Show Mechanics Data" class="button btn btn-light"
             onclick="location.href= '/index/mechanic' ">
         <input type="button" value="Create Car" class="button btn btn-primary"
             onclick="location.href= '/index/car/create' ">
-    </label>
 @endsection

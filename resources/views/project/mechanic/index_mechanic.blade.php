@@ -27,54 +27,52 @@
 @stop
 
 @push('scripts')
-
     <script>
-        $(document).ready(function() {
-            $('#mechanic-data').DataTable();
-        });
+       $(document).ready(function() {
+         $('#mechanic-data').DataTable();
+       });
 
     </script>
-
 @endpush
 
 @section('content')
     @if ($mechanics->count() > 0)
         <div class="bg-white">
-          <table class="table" id="mechanic-data">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Mechanic Name</th>
-                    <th scope="col">Mechanic Address</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($mechanics as $mechanic)
-                    <tr class="row-{{ $mechanic->id }}">
-                        <td>{{ $mechanic->id }}</td>
-                        <td>{{ $mechanic->name }}</td>
-                        <td>{{ $mechanic->address }}</td>
-                        <td>
-                            <form action="/index/mechanic/{id}" method="GET"
-                                style="width:auto;margin:0px;padding:0px;background:none">
-                                @method('DELETE')
-                                <input type="button" value="Edit Data" class="btn btn-success"
-                                    onclick="location.href= '/index/mechanic/{{ $mechanic->id }}/edit' ">
-                                <input type="submit" value="Delete" class="btn btn-danger">
-                                <input type="button" value="Delete Ajax" class="delete-ajax btn btn-danger"
-                                    delete-id="{{ $mechanic->id }}">
-                            </form>
-                        </td>
-                @endforeach
-            </tbody>
-        </table>
+            <table class="table" id="mechanic-data">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Mechanic Name</th>
+                        <th scope="col">Mechanic Address</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($mechanics as $mechanic)
+                        <tr class="row-{{ $mechanic->id }}">
+                            <td>{{ $mechanic->id }}</td>
+                            <td>{{ $mechanic->name }}</td>
+                            <td>{{ $mechanic->address }}</td>
+                            <td>
+                                <form action="/index/mechanic/{id}" method="GET"
+                                    style="width:auto;margin:0px;padding:0px;background:none">
+                                    @method('DELETE')
+                                    <input type="button" value="Edit Data" class="btn btn-success"
+                                        onclick="location.href= '/index/mechanic/{{ $mechanic->id }}/edit' ">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                    <input type="button" value="Delete Ajax" class="delete-ajax btn btn-danger"
+                                        delete-id="{{ $mechanic->id }}">
+                                </form>
+                            </td>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     @else
         <div class="alert alert-warning">
             <strong>Warning</strong><br>
             <span>there is no any mechanic untill now,</span><a href="/index/mechanic/create" class="underline ml-2">add new
-                one</a>
+                eone</a>
         </div>
     @endif
 @endsection
