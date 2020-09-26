@@ -3,52 +3,41 @@
 namespace App\Http\Controllers\Car;
 
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 
 class CarAjaxController extends Controller
 {
     public function store()
     {
-        $car = \App\Models\Car::create( $this->validation() );
-        if( $car ) {
-            return response()->json([
-                'status' => true
-            ]);
-        } else {
-            return $car;
-        }
+        Car::create($this->validation());
+        return response()->json([
+            'status' => true
+        ]);
     }
+
     public function update($id)
     {
-        $car = \App\Models\Car::findOrFail( $id );
-        if( $car ) {
-            $car->update( $this->validation() );
-            return response()->json([
-                'status' => true
-            ]);
-        } else {
-            return $car;
-        }
+        Car::findOrFail($id)->update($this->validation());
+        return response()->json([
+            'status' => true
+        ]);
     }
+
     public function destroy($id)
     {
-        $car = \App\Models\car::findOrFail( $id );
-        if( $car ) {
-            $car->delete();
-            return response()->json([
-                'status' => true
-            ]);
-        } else {
-            return $car;
-        }
+        Car::findOrFail($id)->delete();
+        return response()->json([
+            'status' => true
+        ]);
     }
+
     public function validation()
     {
-        $data = request()->validate([
-            'type' => 'required|unique:cars,type',
+        return request()->validate([
+            'type' => 'required',
             'char' => 'required|numeric',
-            'number' => 'required|numeric|unique:cars,number',
+            'number' => 'required|numeric',
             'mechanic_id' => 'required'
         ]);
-        return $data;
     }
 }
