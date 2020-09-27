@@ -51,10 +51,9 @@
 @section('content')
     @if ($orders->count() > 0)
         <div id="wait-msg" style="display: none;position:absolute;z-index:
-            100000;margin-top: 330px;margin-left: 530px" class="spinner-border
-            text-primary" role="status"></div>
-        <form style="width:740px;padding:5 5 15 5;background:#efefef;
-              margin-bottom:60px;margin-top:10px;float:left">
+                    100000;margin-top: 330px;margin-left: 530px" class="spinner-border
+                    text-primary" role="status"></div>
+        <div class="bg-white">
             <label>
                 <input type="text" id="search" class="input" placeholder="Search...">
                 <div class="line-box">
@@ -63,8 +62,6 @@
                 <span class="font-semibold text-gray-500 float-left m-2">search with
                     shop name or customer address</span>
             </label>
-        </form>
-        <div class="bg-white">
             <table class="table" id="order-data">
                 <thead>
                     <tr>
@@ -80,7 +77,11 @@
                     @foreach ($orders as $order)
                         <tr class="row-{{ $order->id }}">
                             <td>{{ $order->id }}</td>
-                            <td><a href="/index/delegate-order/{{ $order->id }}/edit">{{ $order->delegate['name'] }}</a>
+                            @if ($order->delegate)
+                                <td><a href="/index/delegate-order/{{ $order->id }}/edit">{{ $order->delegate->name }}</a>
+                                @else
+                                <td>null</td>
+                            @endif
                             </td>
                             <td>{{ $order->shop_name }}</td>
                             <td>{{ $order->customer_address }}</td>
