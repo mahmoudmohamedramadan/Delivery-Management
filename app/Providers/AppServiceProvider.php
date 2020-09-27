@@ -53,6 +53,6 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        View::composer(['project.order.*'], OrderComposer::class);
+        View::composer(['project.order.index_order'], OrderComposer::class);
     }
 }
