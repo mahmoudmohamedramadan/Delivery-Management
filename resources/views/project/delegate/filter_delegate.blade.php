@@ -8,10 +8,10 @@
             @if ($delegate->image)
                 <td><img src="{{ asset('images/delegate/' . $delegate->image) }}" alt="{{ $delegate->image }}" width="80px" height="80px">
                 </td>
-                @include('project.layouts.layout',['filter' => $filter])
+                @include('project.layouts.layout')
             @else
                 <td>null</td>
-                @include('project.layouts.layout',['filter' => $filter])
+                @include('project.layouts.layout')
             @endif
         </tr>
     @endforeach
