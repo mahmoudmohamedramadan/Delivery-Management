@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         using wildcard means i will pass this key in all views in this
         path[project.mechanic]
          */
-        View::composer(['project.mechanic.index_mechanic'], function ($view) use ($mechanics) {
+        View::composer(['project.mechanic.index_mechanic','project.car.*'], function ($view) use ($mechanics) {
             $view->with('mechanics', $mechanics);
         });
 
