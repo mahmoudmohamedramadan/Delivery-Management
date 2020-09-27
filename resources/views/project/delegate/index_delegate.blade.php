@@ -44,7 +44,7 @@
             $('#search').on('keyup', function() {
                 $.ajax({
                     type: 'get',
-                    url: '/index/search/delegate',
+                    url: '/index/ajax/search/delegate',
                     data: {
                         searchVal: $(this).val()
                     },
@@ -76,18 +76,18 @@
                 });
             });
         });
-        $(document).on('mouseover', 'li', function() {
-            $('#search').val($(this).text());
+        $(document).on('mouseover', '.li-delegate-name', function() {
+            $('#search').val( $.trim($(this).text()) );
             $(this).css('background-color', '#CCC');
         });
-        $(document).on('mouseleave', 'li', function() {
+        $(document).on('mouseleave', '.li-delegate-name', function() {
+          $('#search').val('');
             $(this).css('background-color', '#FFF');
         });
-        $(document).on('click', 'li', function() {
-            $('#search').val($(this).text());
+        $(document).on('click', '.li-delegate-name', function() {
+            $('#search').val( $.trim($(this).text()) );
             $('#search-result').hide();
         });
-
     </script>
 @stop
 @section('content')
@@ -95,31 +95,14 @@
         <div id="wait-msg" style="display: none;position:absolute;z-index:
             100000;margin-top: 330px;margin-left: 530px" class="spinner-border
             text-primary" role="status"></div>
-        <form action="" id="frm-filter"
-            style="width:920px;padding:5 5 15 5;background:#efefef;margin-left:70px;margin-bottom:60px;margin-top:10px;float:left">
-            @csrf
-            <h1 class="font-bold text-lg text-gray-600 py-4">Choose Fit Filter</h1>
-            <input type="radio" name="filter" value="0" id="no-filter" checked>
-            <label for="no-filter" class="mr-2 cursor-pointer" style="display:inline;margin:0px">None</label>
-            <input type="radio" name="filter" value="1" id="delegate-has">
-            <label for="delegate-has" class="mr-2 cursor-pointer" style="display:inline;margin:0px">Delegates Has
-                Orders</label>
-            <input type="radio" name="filter" value="2" id="delegate-with-orders">
-            <label for="delegate-with-orders" class="mr-2 cursor-pointer" style="display:inline;margin:0px">Delegates With
-                Orders</label>
-            <input type="radio" name="filter" value="3" id="delegate-doesnt-have">
-            <label for="delegate-doesnt-have" class="cursor-pointer" style="display:inline;margin:0px">Delegates Doesnt Have
-                Orders</label><br>
-            <input type="submit" value="Apply Filter" class="mt-3 btn btn-dark" id="filter-delegate">
-            <label>
-                <input type="text" id="search" class="input" placeholder="Search...">
-                <div style="float:left;display:none" id="search-result"></div>
-                <div class="line-box">
-                    <div class="line"></div>
-                </div>
-            </label>
-        </form>
-        <div id="delegate-table" class="bg-white">
+            <div id="delegate-table" class="bg-white">
+              <labe>
+                  <input type="text" id="search" class="input" placeholder="Search...">
+                  <div style="float:left;display:none" id="search-result"></div>
+                  <div class="line-box">
+                      <div class="line"></div>
+                  </div>
+              </labe>
             <table class="table" id="delegate-data">
                 <thead>
                     <tr>
@@ -140,8 +123,7 @@
     @else
         <div class="alert alert-warning">
             <strong>Warning</strong><br>
-            <span>there is no any delegate until now,</span><a href="/index/delegate/create" class="underline ml-2">create
-                new one</a>
+            <span>there is no any delegate until now,</span><a href="/index/delegate/create" class="underline ml-2">create new one</a>
         </div>
     @endif
 @endsection
