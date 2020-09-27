@@ -29,11 +29,11 @@ class CompanyAjaxController extends Controller
                 ->allowedFilters(['id', 'name', 'email', 'phone'])
                 ->get();
 
-        $getSection = view('project.company.search-company')
+        $companySection = view('project.company.search_company')
             ->with('companies', $companies)
             ->renderSections();
         return response()
-            ->json(['companies' => $getSection]);
+            ->json(['companySection' => $companySection['companySection']]);
     }
 
     public function create()
