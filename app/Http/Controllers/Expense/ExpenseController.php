@@ -13,8 +13,7 @@ class ExpenseController extends Controller
 
     public function index()
     {
-        $expenses = DB::table('expenses')->paginate(30);
-        return view('project.expense.index_expense', ['expenses' => $expenses]);
+        return view('project.expense.index_expense', ['expenses' => Expense::all()]);
     }
 
     public function create()
