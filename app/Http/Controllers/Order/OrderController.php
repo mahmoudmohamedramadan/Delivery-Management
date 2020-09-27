@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Traits\Order\ValidateOrderTrait;
 
 class OrderController extends Controller {
@@ -14,32 +15,28 @@ class OrderController extends Controller {
   }
 
   public function create() {
-    $delegates = \App\Models\Delegate::all();
-    return view('project.order.create_order')->with(['delegates' => $delegates]);
+    return view('project.order.create_order');
   }
 
   public function store() {
-    \App\Models\Order::create($this->validation());
+    Order::create($this->validation());
     return redirect()->back()->with('message', 'data saved successfully');
   }
 
   public function edit($id) {
-    $order = \App\Models\Order::findorFail($id);
-    $delegates = \App\Models\Delegate::all()->except($order->delegate_id);
+    $order = Order::findorFail($id);
     return view('project.order.edit_order')->with([
-      'order' => $order, 'delegates' => $delegates
+      'order' => $order
     ]);
   }
 
   public function update($id) {
-    $order = \App\Models\Order::findorFail($id);
-    $order->update($this->validation());
+    Order::findorFail($id)->update($this->validation());
     return redirect()->to('/index/delegate-order');
   }
 
   public function destroy($id) {
-    $order = \App\Models\Order::findOrFail($id);
-    $order->delete();
+    Order::findOrFail($id)->delete();
     return redirect()->to('/index/delegate-order');
   }
 }
