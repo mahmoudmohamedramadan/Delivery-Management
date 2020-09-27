@@ -16,24 +16,20 @@ class CarController extends Controller
     {
         $last_car = Car::max('id') + 1;
         $car_transaction = \App\Models\CarTransactoin::find($last_car);
-        $mechanics = \App\Models\Mechanic::get();
-        if ($mechanics && $car_transaction) {
+        if ($car_transaction) {
             return view('project.car.create_car')->with([
                 'error' => false,
-                'payment_error' => false,
-                'mechanics' => $mechanics,
+                'payment_error' => false
             ]);
         } else if (!$car_transaction) {
             return view('project.car.create_car')->with([
                 'error' => false,
-                'payment_error' => true,
-                'mechanics' => $mechanics,
+                'payment_error' => true
             ]);
         } else {
             return view('project.car.create_car')->with([
                 'error' => true,
-                'payment_error' => true,
-                'mechanics' => $mechanics,
+                'payment_error' => true
             ]);
         }
     }
@@ -47,8 +43,7 @@ class CarController extends Controller
     public function edit($id)
     {
         $car = Car::findOrFail($id);
-        $mechanics = \App\Models\Mechanic::get()->except($car->mechanic_id);
-        return view('project.car.edit_car', compact('car', 'mechanics'));
+        return view('project.car.edit_car', compact('car'));
     }
 
     public function update($id)
