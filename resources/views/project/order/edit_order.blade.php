@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<title>Edit {{ $order->delegate->name }}'s Order | Delivery Management</title>
+<title>Edit Order | Delivery Management</title>
 @section('ajax')
     <script>
         $(document).ready(function() {
