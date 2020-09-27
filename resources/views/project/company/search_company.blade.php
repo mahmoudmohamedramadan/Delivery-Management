@@ -1,4 +1,4 @@
-@section('searchSection')
+@section('companySection')
     @foreach ($companies as $company)
         <tr class="row-{{ $company->id }}">
             <td>{{ $company->id }}</td>
