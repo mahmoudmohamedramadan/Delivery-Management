@@ -25,8 +25,7 @@ class MechanicAjaxController extends Controller
 
     public function destroy($id)
     {
-        $mechanic = Mechanic::findOrFail($id);
-        $mechanic->delete();
+        Mechanic::findOrFail($id)->delete();
         return response()->json([
             'status' => true,
         ]);
