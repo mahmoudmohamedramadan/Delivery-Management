@@ -12,12 +12,10 @@ class ExpenseAjaxController extends Controller
 
     public function store()
     {
-        $data = Expense::create($this->validation());
-        if ($data) {
-            return response()->json([
-                'status' => true
-            ]);
-        }
+      Expense::create($this->validation());
+      return response()->json([
+          'status' => true
+      ]);
     }
     public function update($id)
     {
@@ -25,9 +23,9 @@ class ExpenseAjaxController extends Controller
     }
     public function destroy($id)
     {
-        Expense::findOrFail($id)->delete();
-        return response()->json([
-            'status' => true
-        ]);
+      Expense::findOrFail($id)->delete();
+      return response()->json([
+          'status' => true
+      ]);
     }
 }
