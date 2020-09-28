@@ -23,8 +23,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '/index/car-payment/{{ request('
-                    id ') }}/' + price + '/form',
+                    url: '/index/car-payment/{{ request('id') }}/' + price + '/form',
                     dataType: 'json',
                     data: {},
                     success: function(data) {
