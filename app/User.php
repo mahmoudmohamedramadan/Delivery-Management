@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\MediaCollections\File;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -42,16 +41,13 @@ class User extends Authenticatable implements HasMedia
 
   public function hasMedia(string $collectionName = 'default'): bool
   {
-    return $this->getMedia($collectionName) ? false : true;
+    return $this->getMedia($collectionName) ? true : false;
   }
 
   public function registerMediaCollections()
   {
     $this->addMediaCollection('avatar')
       ->singleFile()
-      ->onlyKeepLatest(1)
-      ->acceptsFile(function (File $file) {
-        return $file->mimeType === 'image/jpg';
-      });
+      ->onlyKeepLatest(1);
   }
 }
