@@ -14,11 +14,11 @@
     <link rel="icon" href="{{ asset('delivery-management.jfif') }}">
 
     <!-- Scripts -->
-    @yield('vue')
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="{{ asset('jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/project_layout.js') }}"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,8 +30,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/project_layout.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
     @yield('ajax')
     @livewireStyles
 </head>
@@ -88,7 +87,7 @@
                                     aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                     @if ($avatar)
-                                        <img src="{{ $avatar->getUrl() }}" alt="avatar" width="25px" height="25px"
+                                        <img src="{{ $avatar[0]->getUrl() }}" alt="avatar" width="25px" height="25px"
                                             style="display: inline;border-radius: 50%;margin-top: -3px">
                                     @else
                                         <img src="http://placehold.it/100/100" alt=" avatar" width="25px" height="25px"
@@ -129,6 +128,7 @@
     </div>
     @stack('scripts')
     @livewireScripts
+    @include('sweetalert::alert')
 </body>
 
 </html>
