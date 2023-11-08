@@ -8,7 +8,7 @@
 
 ## 🚀 Getting Started
 
-First, after you've downloaded this project run the next command
+First, after you've cloned this project run the next command
 
 ```SHELL
 composer install
