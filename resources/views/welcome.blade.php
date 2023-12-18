@@ -90,7 +90,7 @@
             </div>
 
             <div class="links">
-                <a href="https://www.facebook.com/mahmoudmohamedramadan496" title="Facebook">
+                <a href="https://www.facebook.com/mmramadan496" title="Facebook">
                     <img
                         src="https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white" />
                 </a>
@@ -98,11 +98,11 @@
                     <img
                         src="https://img.shields.io/badge/TWITTER-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white" />
                 </a>
-                <a href="https://www.instagram.com/mahmoudmohamedramadan496/" title="Instagram">
+                <a href="https://www.instagram.com/mmramadan496" title="Instagram">
                     <img
                         src="https://img.shields.io/badge/INSTAGRAM-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white" />
                 </a>
-                <a href="https://www.linkedin.com/in/mahmoudmohamedramadan/" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/mmramadan496" title="LinkedIn">
                     <img
                         src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" />
                 </a>
