@@ -20,7 +20,7 @@ In addition, migrate your database:
 php artisan migrate
 ```
 
-Moreover, link the storage for uploading avatars:
+Finally, link the storage for uploading avatars:
 
 ```SHELL
 php artisan storage:link
